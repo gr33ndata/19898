@@ -8,4 +8,4 @@
 # http://www.opensource.org/licenses/MIT-license
 # Copyright (c) 2014 Tarek Amr gr33ndata@yahoo.com
 
-from 19898.version import __version__
+from nineteen898.version import __version__
