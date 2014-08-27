@@ -13,7 +13,7 @@ class TWAPI:
         self.secret = ''
         self.bearer = ''
         self.load_conf()
-        self.show_conf()
+        #self.show_conf()
 
     def load_conf(self):
         fd = open(self.config_file, 'r')
@@ -32,7 +32,19 @@ class TWAPI:
         self.bearer = base64.b64encode('%s:%s' % (self.key, self.secret))
 
 
-    def get_(self):
+    def search(self, query='', token=''):
+        url = 'https://api.twitter.com/1.1/search/tweets.json'
+        headers = {
+            'Authorization': 'Bearer ' + token
+        }
+        payload = {
+            'q': query
+        }
+        r = requests.get(url, params=payload, headers=headers)
+        print r, r.text
+        return r.json()
+
+    def get_(self, query=''):
         
         url = 'https://api.twitter.com/oauth2/token'
         payload = {
@@ -44,7 +56,11 @@ class TWAPI:
         }
 
         r = requests.post(url, data=payload, headers=headers)
-        print r, r.text
+        if r.status_code == 200:
+            token = r.json()["access_token"]
+            return self.search(query=query, token=token)
+        else:
+            print r.status_code
 
 if __name__ == '__main__':
     tw = TWAPI()
