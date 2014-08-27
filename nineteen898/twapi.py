@@ -1,5 +1,6 @@
 import os 
 import json
+import yaml
 import base64
 import requests
 
@@ -16,8 +17,9 @@ class TWAPI:
 
     def load_conf(self):
         fd = open(self.config_file, 'r')
-        self.key = fd.readline().split(':', 1)[1].strip() 
-        self.secret = fd.readline().split(':', 1)[1].strip() 
+        conf = yaml.load(fd)
+        self.key = conf['APIKey']
+        self.secret = conf['APISecret'] 
         fd.close()
         self.get_bearer_token()
 
