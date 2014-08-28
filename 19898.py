@@ -24,7 +24,7 @@ def main():
     parser.add_argument('-q', '--query', metavar='Query', default='#OpenData', help='Query used to get the data based on')
     parser.add_argument('-c', '--count', metavar='Count', default=100, help='Number of posts to retrieve')
     parser.add_argument('-o', '--output', metavar='OutputFile', default='output.json', help='Dump data to filename specified by OutputFile')
-    parser.add_argument('-v', '--verbose', metavar='Verboce', nargs='?', const=True, default=False, help='Show debug messages')
+    parser.add_argument('-v', '--verbose', metavar='Verbose', nargs='?', const=True, default=False, help='Show debug messages')
     args = parser.parse_args()
     
     if args.verbose: 
