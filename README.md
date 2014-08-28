@@ -7,7 +7,7 @@ Usage:
 
 `python 19898.py [-h] [-q Query] [-c Count] [-o OutputFile] [-v [Verbose]] {twitter}`
 
-CLI tool for social media data analysis
+CLI options
 
 ```
 positional arguments:
@@ -24,3 +24,9 @@ optional arguments:
   -v [Verboce], --verbose [Verboce]
                         Show debug messages
 ```
+
+Contacts
+--------
+ 
++ Name: [Tarek Amr](http://tarekamr.appspot.com/)
++ Twitter: [@gr33ndata](https://twitter.com/gr33ndata)
