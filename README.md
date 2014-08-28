@@ -5,10 +5,11 @@
 
 Usage:
 
-`python 19898.py [-h] [-q Query] [-c Count] [-o OutputFile] [-v [Verbose]] {twitter}
+`python 19898.py [-h] [-q Query] [-c Count] [-o OutputFile] [-v [Verbose]] {twitter}`
 
 CLI tool for social media data analysis
 
+```
 positional arguments:
   {twitter}             Social network to get data from
 
@@ -22,4 +23,4 @@ optional arguments:
                         Dump data to filename specified by OutputFile
   -v [Verboce], --verbose [Verboce]
                         Show debug messages
-`
+```
