@@ -18,8 +18,8 @@ class TWAPI:
     def load_conf(self):
         fd = open(self.config_file, 'r')
         conf = yaml.load(fd)
-        self.key = conf['APIKey']
-        self.secret = conf['APISecret'] 
+        self.key = conf['TwitterKey']
+        self.secret = conf['TwitterSecret'] 
         fd.close()
         self.get_bearer_token()
 
