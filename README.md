@@ -5,8 +5,7 @@
 
 Usage:
 
-`usage: 19898.py [-h] [-q Query] [-c Count] [-o OutputFile] [-v [Verbose]]
-                {twitter}`
+`python 19898.py [-h] [-q Query] [-c Count] [-o OutputFile] [-v [Verbose]] {twitter}
 
 CLI tool for social media data analysis
 
@@ -23,3 +22,4 @@ optional arguments:
                         Dump data to filename specified by OutputFile
   -v [Verboce], --verbose [Verboce]
                         Show debug messages
+`
