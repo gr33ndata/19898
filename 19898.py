@@ -1,4 +1,5 @@
 import sys
+import json
 import argparse
 from nineteen898.twapi import TWAPI
 
@@ -12,10 +13,8 @@ def get_tweets(query='', count=100):
 
 def save_to_file(filename='', posts=[]):
     fd = open(filename,'w')
-    fd.write('{data:[\n')
-    for post in posts:
-        fd.write('  %s\n' % post)
-    fd.write('}\n')
+    json_data = {"data": posts}
+    json.dump(json_data, fd)
     fd.close()
 
 def main():
