@@ -1,5 +1,6 @@
 # Ignore config file
 config.yml
+output.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

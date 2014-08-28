@@ -1,3 +1,4 @@
+import sys
 import argparse
 from nineteen898.twapi import TWAPI
 
@@ -5,20 +6,39 @@ def show_version():
     from nineteen898 import version
     print version.__version__
 
-def get_tweets(query=''):
+def get_tweets(query='', count=100):
     tw = TWAPI(config_file='config.yml')
-    tw.get_(query=query)
+    return tw.get_tweets(query=query, count=count)
+
+def save_to_file(filename='', posts=[]):
+    fd = open(filename,'w')
+    fd.write('{data:[\n')
+    for post in posts:
+        fd.write('  %s\n' % post)
+    fd.write('}\n')
+    fd.close()
 
 def main():
     parser = argparse.ArgumentParser(description='CLI tool for social media data analysis')
     parser.add_argument('source', choices=['twitter'], default='twitter', help='Social network to get data from')
-    parser.add_argument('-q', '--query', metavar='Query', default='1984', help='Query used to get the data based on')
+    parser.add_argument('-q', '--query', metavar='Query', default='#OpenData', help='Query used to get the data based on')
+    parser.add_argument('-c', '--count', metavar='Count', default=100, help='Number of posts to retrieve')
     parser.add_argument('-o', '--output', metavar='OutputFile', default='output.json', help='Dump data to filename specified by OutputFile')
+    parser.add_argument('-v', '--verbose', metavar='Verboce', nargs='?', const=True, default=False, help='Show debug messages')
     args = parser.parse_args()
-    print args
-
-    get_tweets(query=args.query)
     
+    if args.verbose: 
+        print args
+
+    count = int(args.count)
+    posts = get_tweets(query=args.query, count=count)
+    
+    if args.verbose: 
+        print len(posts)
+        for post in posts:
+            print post["id"]
+    
+    save_to_file(args.output, posts)
 
 if __name__ == '__main__':
     main()

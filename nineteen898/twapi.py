@@ -32,19 +32,31 @@ class TWAPI:
         self.bearer = base64.b64encode('%s:%s' % (self.key, self.secret))
 
 
-    def search(self, query='', token=''):
+    def search(self, query='', token='', max_posts=100, max_id=0):
+        if max_posts == 0:
+            return []
+        count = min(max_posts, 100)
         url = 'https://api.twitter.com/1.1/search/tweets.json'
         headers = {
             'Authorization': 'Bearer ' + token
         }
         payload = {
-            'q': query
+            'result_type': 'recent',
+            'q': query,
+            'count': count,
+            'max_id': max_id
         }
+        ret_data = []
         r = requests.get(url, params=payload, headers=headers)
-        print r, r.text
-        return r.json()
+        #print r, r.text
+        if r.status_code == 200:
+            for status in r.json()["statuses"]:
+                ret_data.append(status)
+                max_id = int(status["id"]) - 1
+            ret_data = ret_data + self.search(query=query, token=token, max_posts=max_posts-count, max_id=max_id)     
+        return ret_data
 
-    def get_(self, query=''):
+    def get_tweets(self, query='', count=100):
         
         url = 'https://api.twitter.com/oauth2/token'
         payload = {
@@ -58,7 +70,7 @@ class TWAPI:
         r = requests.post(url, data=payload, headers=headers)
         if r.status_code == 200:
             token = r.json()["access_token"]
-            return self.search(query=query, token=token)
+            return self.search(query=query, token=token, max_posts=count)
         else:
             print r.status_code
 
