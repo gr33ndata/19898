@@ -17,12 +17,16 @@ def save_to_file(filename='', posts=[]):
     json.dump(json_data, fd)
     fd.close()
 
+def dump_to_screen(posts=[]):
+    json_data = {"data": posts}
+    print json.dumps(json_data)
+
 def main():
     parser = argparse.ArgumentParser(description='CLI tool for social media data analysis')
     parser.add_argument('source', choices=['twitter'], default='twitter', help='Social network to get data from')
     parser.add_argument('-q', '--query', metavar='Query', default='#OpenData', help='Query used to get the data based on')
     parser.add_argument('-c', '--count', metavar='Count', default=100, help='Number of posts to retrieve')
-    parser.add_argument('-o', '--output', metavar='OutputFile', default='output.json', help='Dump data to filename specified by OutputFile')
+    parser.add_argument('-o', '--output', metavar='OutputFile', default='', help='Dump data to filename specified by OutputFile')
     parser.add_argument('-v', '--verbose', metavar='Verbose', nargs='?', const=True, default=False, help='Show debug messages')
     args = parser.parse_args()
     
@@ -37,7 +41,10 @@ def main():
         for post in posts:
             print post["id"]
     
-    save_to_file(args.output, posts)
+    if args.output:
+        save_to_file(args.output, posts)
+    else:
+        dump_to_screen(posts)
 
 if __name__ == '__main__':
     main()
