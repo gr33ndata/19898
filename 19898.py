@@ -23,7 +23,7 @@ def dump_to_screen(posts=[]):
 
 def main():
     parser = argparse.ArgumentParser(description='CLI tool for social media data analysis')
-    parser.add_argument('source', choices=['twitter'], default='twitter', help='Social network to get data from')
+    parser.add_argument('source', choices=['twitter', 'gplus'], default='twitter', help='Social network to get data from')
     parser.add_argument('-q', '--query', metavar='Query', default='#OpenData', help='Query used to get the data based on')
     parser.add_argument('-c', '--count', metavar='Count', default=100, help='Number of posts to retrieve')
     parser.add_argument('-o', '--output', metavar='OutputFile', default='', help='Dump data to filename specified by OutputFile')
@@ -32,6 +32,9 @@ def main():
     
     if args.verbose: 
         print args
+
+    if args.source != 'twitter':
+        sys.exit('Not implemented yet!')
 
     count = int(args.count)
     posts = get_tweets(query=args.query, count=count)
