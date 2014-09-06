@@ -50,9 +50,8 @@ class TWAPI:
         r = requests.get(url, params=payload, headers=headers)
         #print r, r.text
         if r.status_code == 200:
-            for status in r.json()["statuses"]:
-                ret_data.append(status)
-                max_id = int(status["id"]) - 1
+            ret_data = [status for status in r.json()["statuses"]]
+            max_id = int(ret_data[-1]["id"]) - 1
             ret_data = ret_data + self.search(query=query, token=token, max_posts=max_posts-count, max_id=max_id)     
         return ret_data
 
