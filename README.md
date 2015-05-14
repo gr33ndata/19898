@@ -5,6 +5,8 @@
 
 Usage:
 
+You first need to rename `config.yml.example` into `config.yml`, then add your twitter key and secret there. After that, the CLI is as follows:
+
 `python 19898.py [-h] [-q Query] [-c Count] [-o OutputFile] [-v [Verbose]] {twitter}`
 
 CLI options
