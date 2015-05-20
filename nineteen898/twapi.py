@@ -69,7 +69,7 @@ class TWAPI:
         r = requests.get(url, params=payload, headers=headers)
         #print r, r.text
         if r.status_code == 200:
-            ret_data = [user["name"] for user in r.json()]     
+            ret_data = [user for user in r.json()]     
         return ret_data
 
     def get_tweets(self, query='', count=100):
