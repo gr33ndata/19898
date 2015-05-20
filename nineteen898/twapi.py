@@ -73,7 +73,7 @@ class TWAPI:
         else:
             print r.status_code
 
-    def get_user(self, user='', count=10):
+    def get_users(self, user='', count=10):
         
         url = 'https://api.twitter.com/oauth2/token'
         payload = {

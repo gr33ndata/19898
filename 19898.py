@@ -25,7 +25,7 @@ def main():
     parser = argparse.ArgumentParser(description='CLI tool for social media data analysis')
     parser.add_argument('source', choices=['twitter', 'gplus'], default='twitter', help='Social network to get data from')
     twitter_group = parser.add_mutually_exclusive_group()
-    twitter_group.add_argument('-u', '--user', metavar='User', default='', help='Get user info')
+    twitter_group.add_argument('-u', '--users', metavar='Users', default='', help='Get info about comma-separated users')
     twitter_group.add_argument('-q', '--query', metavar='Query', default='', help='Query used to get the data based on')
     parser.add_argument('-c', '--count', metavar='Count', default=100, help='Number of posts to retrieve')
     parser.add_argument('-o', '--output', metavar='OutputFile', default='', help='Dump data to filename specified by OutputFile')
@@ -40,7 +40,7 @@ def main():
 
 
     if args.user:
-        posts = get_user(user=args.user)
+        posts = get_users(user=args.users)
     else:
         count = int(args.count)
         posts = get_tweets(query=args.query, count=count)
