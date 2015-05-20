@@ -42,7 +42,6 @@ def main():
     if args.source != 'twitter':
         sys.exit('Not implemented yet!')
 
-
     if args.users:
         posts = get_users(users=args.users)
     else:
