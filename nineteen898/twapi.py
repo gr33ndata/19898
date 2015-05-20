@@ -55,6 +55,23 @@ class TWAPI:
             ret_data = ret_data + self.search(query=query, token=token, max_posts=max_posts-count, max_id=max_id)     
         return ret_data
 
+    def users_info(self, users='', token='', include_entities=False):
+
+        url = 'https://api.twitter.com/1.1/users/lookup.json'
+        headers = {
+            'Authorization': 'Bearer ' + token
+        }
+        payload = {
+            'screen_name': users,
+            'include_entities': include_entities,
+        }
+        ret_data = []
+        r = requests.get(url, params=payload, headers=headers)
+        #print r, r.text
+        if r.status_code == 200:
+            ret_data = [user["name"] for user in r.json()]     
+        return ret_data
+
     def get_tweets(self, query='', count=100):
         
         url = 'https://api.twitter.com/oauth2/token'
@@ -73,7 +90,7 @@ class TWAPI:
         else:
             print r.status_code
 
-    def get_users(self, user='', count=10):
+    def get_users(self, users='', count=10):
         
         url = 'https://api.twitter.com/oauth2/token'
         payload = {
@@ -87,7 +104,7 @@ class TWAPI:
         r = requests.post(url, data=payload, headers=headers)
         if r.status_code == 200:
             token = r.json()["access_token"]
-            #return self.search(query='@{}'.format(user), token=token, max_posts=count)
+            return self.users_info(users=users, token=token)
             return user
         else:
             print r.status_code

@@ -11,6 +11,10 @@ def get_tweets(query='', count=100):
     tw = TWAPI(config_file='config.yml')
     return tw.get_tweets(query=query, count=count)
 
+def get_users(users=''):
+    tw = TWAPI(config_file='config.yml')
+    return tw.get_users(users=users)
+
 def save_to_file(filename='', posts=[]):
     fd = open(filename,'w')
     json_data = {"data": posts}
@@ -39,8 +43,8 @@ def main():
         sys.exit('Not implemented yet!')
 
 
-    if args.user:
-        posts = get_users(user=args.users)
+    if args.users:
+        posts = get_users(users=args.users)
     else:
         count = int(args.count)
         posts = get_tweets(query=args.query, count=count)
