@@ -73,6 +73,25 @@ class TWAPI:
         else:
             print r.status_code
 
+    def get_user(self, user='', count=10):
+        
+        url = 'https://api.twitter.com/oauth2/token'
+        payload = {
+            'grant_type': 'client_credentials'
+        }
+        headers = {
+            'Authorization': 'Basic ' + self.bearer,
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        }
+
+        r = requests.post(url, data=payload, headers=headers)
+        if r.status_code == 200:
+            token = r.json()["access_token"]
+            #return self.search(query='@{}'.format(user), token=token, max_posts=count)
+            return user
+        else:
+            print r.status_code
+
 if __name__ == '__main__':
     tw = TWAPI()
     tw.get_()

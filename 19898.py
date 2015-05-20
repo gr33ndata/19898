@@ -24,7 +24,9 @@ def dump_to_screen(posts=[]):
 def main():
     parser = argparse.ArgumentParser(description='CLI tool for social media data analysis')
     parser.add_argument('source', choices=['twitter', 'gplus'], default='twitter', help='Social network to get data from')
-    parser.add_argument('-q', '--query', metavar='Query', default='#OpenData', help='Query used to get the data based on')
+    twitter_group = parser.add_mutually_exclusive_group()
+    twitter_group.add_argument('-u', '--user', metavar='User', default='', help='Get user info')
+    twitter_group.add_argument('-q', '--query', metavar='Query', default='', help='Query used to get the data based on')
     parser.add_argument('-c', '--count', metavar='Count', default=100, help='Number of posts to retrieve')
     parser.add_argument('-o', '--output', metavar='OutputFile', default='', help='Dump data to filename specified by OutputFile')
     parser.add_argument('-v', '--verbose', metavar='Verbose', nargs='?', const=True, default=False, help='Show debug messages')
@@ -36,9 +38,14 @@ def main():
     if args.source != 'twitter':
         sys.exit('Not implemented yet!')
 
-    count = int(args.count)
-    posts = get_tweets(query=args.query, count=count)
-    
+
+    if args.user:
+        posts = get_user(user=args.user)
+    else:
+        count = int(args.count)
+        posts = get_tweets(query=args.query, count=count)
+
+
     if args.verbose: 
         print len(posts)
         for post in posts:
